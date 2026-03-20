@@ -1,0 +1,7 @@
+{
+  "name": "LU-App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular-standalone"
+}
