@@ -1,0 +1,55 @@
+<ion-content class="login-container">
+  <div class="logo-section">
+    <ion-icon name="checkmark-done-circle-outline" class="logo-icon"></ion-icon>
+    <h1>Crear Cuenta</h1>
+    <p>Regístrate para comenzar</p>
+  </div>
+
+  <div class="form-section">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          [(ngModel)]="email"
+          type="email"
+          placeholder="correo@ejemplo.com"
+          label="Correo electrónico"
+          labelPlacement="floating"
+        >
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          [(ngModel)]="password"
+          type="password"
+          placeholder="********"
+          label="Contraseña"
+          labelPlacement="floating"
+        >
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          [(ngModel)]="confirmPassword"
+          type="password"
+          placeholder="********"
+          label="Confirmar contraseña"
+          labelPlacement="floating"
+        >
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" (click)="register()" class="login-btn">
+      Registrarme
+    </ion-button>
+
+    <ion-button expand="block" fill="clear" (click)="goToLogin()" class="register-btn">
+      ¿Ya tienes cuenta? Inicia sesión
+    </ion-button>
+  </div>
+</ion-content>

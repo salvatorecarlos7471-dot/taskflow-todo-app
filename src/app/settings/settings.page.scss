@@ -1,0 +1,26 @@
+.settings-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+ion-list {
+  background: transparent;
+  margin-bottom: 30px;
+  
+  ion-item {
+    --background: white;
+    --border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.save-btn {
+  --background: linear-gradient(135deg, #8B5F9E 0%, #A87BB8 100%);
+  --border-radius: 28px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-weight: 600;
+  text-transform: none;
+}

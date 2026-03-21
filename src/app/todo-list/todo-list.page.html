@@ -1,0 +1,132 @@
+<ion-menu contentId="main-content" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item button (click)="goToProfile()">
+        <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+        <ion-label>Mi Perfil</ion-label>
+      </ion-item>
+      <ion-item button (click)="refreshFeatureFlag()">
+  <ion-icon name="refresh-outline" slot="start"></ion-icon>
+  <ion-label>Actualizar Remote Config</ion-label>
+</ion-item>
+      <ion-item button (click)="goToSettings()">
+        <ion-icon name="settings-outline" slot="start"></ion-icon>
+        <ion-label>Ajustes</ion-label>
+      </ion-item>
+      <ion-item button (click)="showNotifications()">
+        <ion-icon name="notifications-outline" slot="start"></ion-icon>
+        <ion-label>Notificaciones</ion-label>
+        <ion-badge color="danger" *ngIf="notificationCount > 0">{{notificationCount}}</ion-badge>
+      </ion-item>
+      <ion-item button (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Cerrar Sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>TaskFlow</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showNotifications()">
+        <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Tarjeta de bienvenida -->
+  <div class="welcome-card">
+    <div class="profile-section" (click)="goToProfile()">
+      <div class="avatar-container">
+        <img [src]="profilePhoto || 'https://randomuser.me/api/portraits/lego/1.jpg'" class="avatar">
+      </div>
+      <div class="welcome-text">
+        <h3>¡Hola, {{userName || 'Usuario'}}!</h3>
+        <p>Tienes {{notificationCount}} tareas pendientes</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agregar tarea -->
+  <div class="task-card">
+    <div class="input-group">
+      <ion-input [(ngModel)]="newTaskTitle" placeholder="¿Qué tienes que hacer?" (keyup.enter)="addTask()"></ion-input>
+      <ion-button class="add-btn" (click)="addTask()" [disabled]="!newTaskTitle.trim()">Agregar</ion-button>
+    </div>
+    <div class="category-group">
+      <ion-label>Categoría</ion-label>
+      <ion-select [(ngModel)]="selectedCategory" interface="popover">
+        <ion-select-option value="personal">✨ Personal</ion-select-option>
+        <ion-select-option value="trabajo">💼 Trabajo</ion-select-option>
+        <ion-select-option value="estudio">📚 Estudio</ion-select-option>
+        <ion-select-option value="hogar">🏠 Hogar</ion-select-option>
+      </ion-select>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filter-container">
+    <ion-segment [(ngModel)]="filterCategory" (ionChange)="onFilterChange()">
+      <ion-segment-button value="all"><ion-label>Todas</ion-label></ion-segment-button>
+      <ion-segment-button value="personal"><ion-label>Personal</ion-label></ion-segment-button>
+      <ion-segment-button value="trabajo"><ion-label>Trabajo</ion-label></ion-segment-button>
+      <ion-segment-button value="estudio"><ion-label>Estudio</ion-label></ion-segment-button>
+      <ion-segment-button value="hogar"><ion-label>Hogar</ion-label></ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Tareas pendientes -->
+  <div class="tasks-section">
+    <div *ngFor="let item of getFilteredTasks()" class="task-item">
+      <ion-checkbox [checked]="item.completed" (ionChange)="toggleTask(item.id)"></ion-checkbox>
+      <div class="task-info">
+        <h3 [class.completed]="item.completed">{{ item.title }}</h3>
+        <span class="category-badge">{{ item.category | titlecase }}</span>
+      </div>
+      <ion-button class="delete-btn" (click)="deleteTask(item.id)">
+        <ion-icon name="trash-outline"></ion-icon>
+        <span>Eliminar</span>
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Mensaje vacío -->
+  <div *ngIf="getFilteredTasks().length === 0" class="empty-state">
+    <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+    <p>¡Todo listo!</p>
+    <span>No hay tareas pendientes</span>
+  </div>
+
+ <!-- Tareas completadas - CONTROLADO POR FEATURE FLAG -->
+
+<div *ngIf="showCompletedTasks && getCompletedTasks().length > 0" class="completed-section">
+  <div class="completed-header">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    <h4>Tareas completadas</h4>
+    <span class="completed-count">{{getCompletedTasks().length}}</span>
+  </div>
+  <div *ngFor="let item of getCompletedTasks()" class="completed-item">
+    <div class="completed-info">
+      <h3>{{ item.title }}</h3>
+      <span class="category-badge">{{ item.category | titlecase }}</span>
+    </div>
+    <ion-button class="delete-btn-secondary" (click)="deleteTask(item.id)">
+      <ion-icon name="trash-outline"></ion-icon>
+      <span>Eliminar</span>
+    </ion-button>
+  </div>
+</div>

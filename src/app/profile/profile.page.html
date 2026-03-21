@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/todo-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background: #FFF9F0;">
+  <div style="max-width: 500px; margin: 0 auto; padding: 20px;">
+    
+    <!-- Avatar -->
+    <div style="text-align: center; margin-bottom: 30px;">
+      <div style="width: 120px; height: 120px; border-radius: 60px; background: linear-gradient(135deg, #8B5F9E 0%, #A87BB8 100%); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+        <img [src]="profilePhoto || 'https://randomuser.me/api/portraits/lego/1.jpg'" style="width: 110px; height: 110px; border-radius: 55px; object-fit: cover; border: 3px solid white;">
+      </div>
+      <h2 style="font-size: 1.5rem; font-weight: 600; color: #4A4A4A; margin: 0;">{{ userName || 'Usuario' }}</h2>
+      <p style="color: #7E7E7E; font-size: 0.85rem; margin-top: 4px;">{{ userEmail || 'correo@ejemplo.com' }}</p>
+    </div>
+
+    <!-- Formulario -->
+    <div style="margin-bottom: 20px;">
+      <div style="background: white; border-radius: 16px; margin-bottom: 16px; padding: 8px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <label style="font-weight: 500; color: #4A4A4A; font-size: 0.85rem; display: block; margin-bottom: 4px;">Nombre</label>
+        <ion-input [(ngModel)]="userName" placeholder="Tu nombre" style="--padding-top: 8px; --padding-bottom: 8px;"></ion-input>
+      </div>
+      
+      <div style="background: white; border-radius: 16px; margin-bottom: 16px; padding: 8px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <label style="font-weight: 500; color: #4A4A4A; font-size: 0.85rem; display: block; margin-bottom: 4px;">Correo electrónico</label>
+        <ion-input [(ngModel)]="userEmail" type="email" placeholder="tucorreo@ejemplo.com" style="--padding-top: 8px; --padding-bottom: 8px;"></ion-input>
+      </div>
+    </div>
+
+    <!-- Género -->
+    <div style="margin: 16px 0;">
+      <label style="font-weight: 600; color: #4A4A4A; margin-bottom: 12px; font-size: 0.85rem; display: block;">Género</label>
+      <div style="display: flex; gap: 12px;">
+        <ion-button (click)="selectGender('male')" style="--background: #F5F5F5; --border-radius: 40px; --padding-start: 20px; --padding-end: 20px; height: 44px; --color: #7E7E7E; font-weight: 500; text-transform: none; flex: 1;" [style.--background]="gender === 'male' ? 'linear-gradient(135deg, #8B5F9E 0%, #A87BB8 100%)' : '#F5F5F5'" [style.--color]="gender === 'male' ? 'white' : '#7E7E7E'">
+          Hombre
+        </ion-button>
+        <ion-button (click)="selectGender('female')" style="--background: #F5F5F5; --border-radius: 40px; --padding-start: 20px; --padding-end: 20px; height: 44px; --color: #7E7E7E; font-weight: 500; text-transform: none; flex: 1;" [style.--background]="gender === 'female' ? 'linear-gradient(135deg, #8B5F9E 0%, #A87BB8 100%)' : '#F5F5F5'" [style.--color]="gender === 'female' ? 'white' : '#7E7E7E'">
+          Mujer
+        </ion-button>
+        <ion-button (click)="selectGender('other')" style="--background: #F5F5F5; --border-radius: 40px; --padding-start: 20px; --padding-end: 20px; height: 44px; --color: #7E7E7E; font-weight: 500; text-transform: none; flex: 1;" [style.--background]="gender === 'other' ? 'linear-gradient(135deg, #8B5F9E 0%, #A87BB8 100%)' : '#F5F5F5'" [style.--color]="gender === 'other' ? 'white' : '#7E7E7E'">
+          Otro
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Botón guardar -->
+    <ion-button expand="block" (click)="saveProfile()" style="--background: linear-gradient(135deg, #8B5F9E 0%, #A87BB8 100%); --border-radius: 28px; --padding-top: 14px; --padding-bottom: 14px; margin-top: 30px; font-weight: 600; text-transform: none; font-size: 1rem;">
+      Guardar cambios
+    </ion-button>
+  </div>
+</ion-content>
