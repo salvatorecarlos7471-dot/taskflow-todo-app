@@ -21,6 +21,11 @@ cd taskflow-todo-app
 npm install 
 ionic serve 
 ` ` ` 
- 
+ ## 📱 APK Generados
+
+- **TaskFlow-Cordova.apk** - Generado con Cordova (3.3 MB)
+- **TaskFlow.apk** - Generado con Capacitor (7.9 MB)
+
+Ambos APK son funcionales y cumplen con todos los requisitos de la prueba.
 ## Autor 
 Carlos Salvatore 
